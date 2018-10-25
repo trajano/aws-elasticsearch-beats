@@ -12,8 +12,10 @@ This is a mostly-preconfigured Filebeats that is setup to read the Docker logs t
           # just the hostname portion the following is an example
           AWS_ELASTICSEARCH_HOSTNAME: vpc-trajano-owe5rf7krqeblvziqykhrj3xcm.ca-central-1.es.amazonaws.com
         # read only access to the /var/lib/docker/containers folder which contain the logs
+        # Access to docker socket is needed to get docker meta data.
         volumes:
         - /var/lib/docker/containers:/var/lib/docker/containers:ro
+        - /var/run/docker.sock:/var/run/docker.sock:ro
         deploy:
           # so it will be deployed to every node
           mode: global
