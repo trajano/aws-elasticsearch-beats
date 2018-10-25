@@ -1,0 +1,13 @@
+filebeat.prospectors:
+- type: log
+  enabled: true
+  paths:
+    - '/var/lib/docker/containers/*/*.log'
+  json.message_key: log
+  json.keys_under_root: true
+  processors:
+   - add_docker_metadata: ~
+setup.kibana:
+  host: https://${AWS_ELASTICSEARCH_HOSTNAME}/_plugin/kibana/
+output.elasticsearch:
+  hosts: ["https://${AWS_ELASTICSEARCH_HOSTNAME}:443"]
